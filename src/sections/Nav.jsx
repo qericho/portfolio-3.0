@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Menu, Sun, SunMoon, X } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import { Link as ScrollLink } from "react-scroll"; // Import react-scroll Link
+import { Link as ScrollLink } from "react-scroll";
 
-// Navigation items array with name and target section id
+// Navigation items
 const navItems = [
   { name: "Portfolio", to: "hero" },
   { name: "About Me", to: "about" },
@@ -19,7 +19,7 @@ const Nav = () => {
   return (
     <section className="bg-theme text-theme w-full relative">
       <div className="flex max-w-7xl mx-auto justify-between items-center xl:py-6 py-4 lg:px-2 sm:px-10 px-2">
-        {/* Logo/Brand */}
+        {/* Logo */}
         <ScrollLink
           to="hero"
           smooth={true}
