@@ -1,26 +1,39 @@
+/* Import Google Fonts and Tailwind CSS utilities */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"); /* Import font */
 @import "tailwindcss"; /* Import Tailwind utilities */
 
+/* Theme variables for light mode */
 @theme {
   --color-bg: #ffffff; /* Light background */
   --color-light: #ffffff; /* Light text */
   --color-primary: #ff4d6d; /* Accent color */
-  --color-muted: #aaaaaa; /* Muted text */
+  --color-muted: #77779e; /* Muted text */
+  --color-border: #e5e7eb; /* Light border (gray-200) */
 }
 
+/* Theme variables for dark mode */
 html.dark {
   --color-bg: #111111; /* Dark background */
   --color-text: #ffffff; /* Dark text */
+  --color-border: #1f2937; /* Dark border (gray-800) */
 }
 
+/* Set global font family */
+body {
+  font-family: "Poppins", sans-serif; /* Set font */
+}
+
+/* Utility class for themed background */
 .bg-theme {
   background-color: var(--color-bg); /* Themed background */
 }
 
+/* Utility class for themed text color */
 .text-theme {
   color: var(--color-text); /* Themed text */
 }
 
-body {
-  font-family: "Poppins", sans-serif; /* Set font */
+/* Utility class for themed border color */
+.border-theme {
+  border-color: var(--color-border);
 }
