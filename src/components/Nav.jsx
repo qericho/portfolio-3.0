@@ -42,11 +42,11 @@ const Nav = () => {
         <div className="flex items-center gap-x-3">
           {isDark ? (
             <span className="cursor-pointer" onClick={toggleTheme}>
-              <SunMoon />
+              <Sun />
             </span>
           ) : (
             <span className="cursor-pointer" onClick={toggleTheme}>
-              <Sun />
+              <SunMoon />
             </span>
           )}
           <button className="lg:flex hidden py-2 px-5 bg-primary text-white text-sm rounded-md cursor-pointer hover:opacity-90 transition">
