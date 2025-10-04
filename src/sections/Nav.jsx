@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Menu, Sun, SunMoon, X } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { Link as ScrollLink } from "react-scroll"; // Import react-scroll Link
 
-// Navigation items array with name and path
+// Navigation items array with name and target section id
 const navItems = [
-  { name: "Portfolio", path: "/portfolio" },
-  { name: "About Me", path: "/about" },
-  { name: "Projects", path: "/projects" },
-  { name: "Contact Me", path: "/contact" },
+  { name: "Portfolio", to: "hero" },
+  { name: "About Me", to: "about" },
+  { name: "Projects", to: "projects" },
+  { name: "Contact Me", to: "contact" },
 ];
 
 const Nav = () => {
@@ -16,10 +17,18 @@ const Nav = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false); // Track dropdown
 
   return (
-    <div className="bg-theme text-theme w-full relative">
+    <section className="bg-theme text-theme w-full relative">
       <div className="flex max-w-7xl mx-auto justify-between items-center xl:py-6 py-4 lg:px-2 sm:px-10 px-2">
         {/* Logo/Brand */}
-        <h1 className="text-lg md:text-2xl font-bold">E.STA</h1>
+        <ScrollLink
+          to="hero"
+          smooth={true}
+          duration={500}
+          offset={-70}
+          className="text-lg md:text-2xl font-bold cursor-pointer"
+        >
+          E.STA
+        </ScrollLink>
         {/* Desktop Navigation */}
         <ul className="lg:flex hidden items-center gap-6">
           {navItems.map((item) => (
@@ -32,9 +41,17 @@ const Nav = () => {
                     : "hover:underline decoration-primary decoration-2 underline-offset-8"
                 }
               `}
-              onClick={() => setActive(item.name)}
             >
-              {item.name}
+              <ScrollLink
+                to={item.to}
+                smooth={true}
+                duration={500}
+                offset={-70}
+                onClick={() => setActive(item.name)}
+                className="cursor-pointer"
+              >
+                {item.name}
+              </ScrollLink>
             </li>
           ))}
         </ul>
@@ -50,7 +67,7 @@ const Nav = () => {
             </span>
           )}
           <button className="lg:flex hidden py-2 px-5 bg-primary text-white text-sm rounded-md cursor-pointer hover:opacity-90 transition">
-            Schedule a Call
+            Download CV
           </button>
           {/* Dropdown menu button for mobile */}
           <span
@@ -66,7 +83,16 @@ const Nav = () => {
         <div className="fixed top-0 left-0 right-0 bg-theme text-theme shadow-lg rounded-b-md z-50">
           <div className="flex flex-col gap-2 px-4 py-4">
             <div className="flex justify-between items-center mb-2">
-              <h1 className="text-lg font-bold">E.STA</h1>
+              <ScrollLink
+                to="hero"
+                smooth={true}
+                duration={500}
+                offset={-70}
+                className="text-lg font-bold cursor-pointer"
+                onClick={() => setDropdownOpen(false)}
+              >
+                E.STA
+              </ScrollLink>
               <span
                 className="cursor-pointer"
                 onClick={() => setDropdownOpen(false)}
@@ -85,12 +111,20 @@ const Nav = () => {
                         : "hover:underline decoration-primary decoration-2 underline-offset-8"
                     }
                   `}
-                  onClick={() => {
-                    setActive(item.name);
-                    setDropdownOpen(false);
-                  }}
                 >
-                  {item.name}
+                  <ScrollLink
+                    to={item.to}
+                    smooth={true}
+                    duration={500}
+                    offset={-70}
+                    onClick={() => {
+                      setActive(item.name);
+                      setDropdownOpen(false);
+                    }}
+                    className="cursor-pointer"
+                  >
+                    {item.name}
+                  </ScrollLink>
                 </li>
               ))}
             </ul>
@@ -111,7 +145,7 @@ const Nav = () => {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

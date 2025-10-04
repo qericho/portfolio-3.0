@@ -24,7 +24,7 @@ const AboutMe = () => {
   ];
 
   return (
-    <div className="w-full bg-theme text-theme py-16 px-6">
+    <div className="w-full bg-theme text-theme pt-10 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
         {/* Left Side - About Me */}
         <div>

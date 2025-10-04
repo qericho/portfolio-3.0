@@ -5,7 +5,7 @@ import Title from "../components/Title";
 // About section combines contact info, title, and about me details
 const About = () => {
   return (
-    <div>
+    <section id="about">
       {/* Contact information at the top */}
       <ContactInfo />
       {/* Section title and subtitle */}
@@ -15,7 +15,7 @@ const About = () => {
       />
       {/* Personal info and skills */}
       <AboutMe />
-    </div>
+    </section>
   );
 };
 

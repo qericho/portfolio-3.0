@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Briefcase, User, FolderGit2, Mail } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { Link } from "react-scroll"; // <-- import Link
 
 const navItems = [
-  { name: "Portfolio", path: "/portfolio", icon: <Briefcase size={18} /> },
-  { name: "About Me", path: "/about", icon: <User size={18} /> },
-  { name: "Projects", path: "/projects", icon: <FolderGit2 size={18} /> },
-  { name: "Contact", path: "/contact", icon: <Mail size={18} /> },
+  { name: "Portfolio", path: "hero", icon: <Briefcase size={18} /> },
+  { name: "About Me", path: "about", icon: <User size={18} /> },
+  { name: "Projects", path: "projects", icon: <FolderGit2 size={18} /> },
+  { name: "Contact", path: "contact", icon: <Mail size={18} /> },
 ];
 
 const AssistiveNav = () => {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
-
   const { isDark } = useTheme();
 
   // Show button when scrolling down
@@ -22,10 +22,9 @@ const AssistiveNav = () => {
         setVisible(true);
       } else {
         setVisible(false);
-        setOpen(false); // close menu if scrolls back to top
+        setOpen(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -55,18 +54,21 @@ const AssistiveNav = () => {
             <ul className="flex flex-col text-sm">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <a
-                    href={item.path}
+                  <Link
+                    to={item.path} // target section id
+                    smooth={true} // smooth scroll
+                    duration={500} // scroll duration in ms
+                    offset={-50} // adjust for fixed headers
                     onClick={() => setOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 ${
+                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer ${
                       isDark
                         ? "hover:bg-black hover:text-white"
                         : "hover:bg-white hover:text-black"
-                    }  transition`}
+                    } transition`}
                   >
                     <span className="text-primary">{item.icon}</span>
                     <span>{item.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
