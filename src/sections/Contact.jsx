@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Phone, MapPin, Github, Instagram, Facebook } from "lucide-react";
 import Title from "../components/Title";
 import { motion } from "framer-motion";
 import { fadeInBottom } from "../animations/variants";
+import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Social media links
 const socialLinks = [
   { href: "https://github.com/qericho", icon: Github, label: "GitHub" },
-  { href: "https://www.instagram.com/echstmr/#", icon: Mail, label: "Email" },
+  { href: "mailto:stamariaecho@gmail.com", icon: Mail, label: "Email" },
   {
     href: "https://www.instagram.com/echstmr/#",
     icon: Instagram,
@@ -34,15 +37,9 @@ const contactDetails = [
     value: "0907-401-5774",
     link: "tel:09074015774",
   },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Laguna, Philippines",
-    link: null,
-  },
+  { icon: MapPin, label: "Location", value: "Laguna, Philippines", link: null },
 ];
 
-// Contact section displays contact info, social links, and a form
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -50,29 +47,88 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
 
-  // Handle input changes
+  // Load cooldown from localStorage
+  useEffect(() => {
+    const storedEnd = localStorage.getItem("contactCooldownEnd");
+    if (storedEnd) {
+      const remaining = Math.ceil((Number(storedEnd) - Date.now()) / 1000);
+      if (remaining > 0) setCooldown(remaining);
+    }
+  }, []);
+
+  // Countdown effect
+  useEffect(() => {
+    let timer;
+    if (cooldown > 0) {
+      timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [cooldown]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
-    // Add actual submission logic here if needed
+
+    if (submitting || cooldown > 0) {
+      toast.info("Please wait before sending another message.", {
+        position: "top-right",
+      });
+      return;
+    }
+
+    setSubmitting(true);
+
+    const notificationParams = {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
+    const autoReplyParams = {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+    };
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_NOTIFICATION_TEMPLATE_ID,
+        notificationParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(() =>
+        emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID,
+          autoReplyParams,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        )
+      )
+      .then(() => {
+        toast.success("Your message has been sent!", { position: "top-right" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      })
+      .catch(() => {
+        toast.error("Oops! Something went wrong. Please try again later.", {
+          position: "top-right",
+        });
+      })
+      .finally(() => {
+        const cooldownSeconds = 30;
+        const cooldownEnd = Date.now() + cooldownSeconds * 1000;
+        localStorage.setItem("contactCooldownEnd", cooldownEnd.toString());
+        setCooldown(cooldownSeconds);
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -133,6 +189,7 @@ const Contact = () => {
             ))}
           </div>
         </motion.div>
+
         {/* Right: Contact Form */}
         <motion.div
           variants={fadeInBottom}
@@ -143,7 +200,6 @@ const Contact = () => {
         >
           <h2 className="text-3xl font-bold mb-6">Send a Message</h2>
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name Field */}
             <div>
               <label
                 htmlFor="name"
@@ -162,7 +218,6 @@ const Contact = () => {
                 className="w-full p-3 bg-muted/20 border border-theme rounded-lg text-theme focus:ring-2 focus:ring-primary focus:border-primary transition"
               />
             </div>
-            {/* Email Field */}
             <div>
               <label
                 htmlFor="email"
@@ -181,7 +236,6 @@ const Contact = () => {
                 className="w-full p-3 bg-muted/20 border border-theme rounded-lg text-theme focus:ring-2 focus:ring-primary focus:border-primary transition"
               />
             </div>
-            {/* Subject Field */}
             <div>
               <label
                 htmlFor="subject"
@@ -199,7 +253,6 @@ const Contact = () => {
                 className="w-full p-3 bg-muted/20 border border-theme rounded-lg text-theme focus:ring-2 focus:ring-primary focus:border-primary transition"
               />
             </div>
-            {/* Message Field */}
             <div>
               <label
                 htmlFor="message"
@@ -218,23 +271,21 @@ const Contact = () => {
                 className="w-full p-3 bg-muted/20 border border-theme rounded-lg text-[#77779e] focus:ring-2 focus:ring-primary focus:border-primary transition resize-none"
               ></textarea>
             </div>
-            {/* Submit Button */}
             <button
               type="submit"
+              disabled={submitting || cooldown > 0}
               className="w-full py-3 px-4 bg-primary text-light font-semibold rounded-lg shadow-lg hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-primary focus:ring-opacity-50 transition-all duration-300"
-              disabled={submitted}
             >
-              {submitted ? "Message Sent!" : "Send Message"}
+              {submitting
+                ? "Sending..."
+                : cooldown > 0
+                ? `Please wait ${cooldown}s`
+                : "Send Message"}
             </button>
           </form>
-          {/* Success Message */}
-          {submitted && (
-            <div className="mt-4 text-green-400 font-semibold text-center">
-              Thank you for reaching out! I'll get back to you soon.
-            </div>
-          )}
         </motion.div>
       </motion.div>
+      <ToastContainer />
     </section>
   );
 };
