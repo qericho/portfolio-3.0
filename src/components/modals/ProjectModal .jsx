@@ -64,7 +64,7 @@ const ProjectModal = ({ project, onClose }) => {
         }`}
       >
         {/* Image */}
-        <div className="rounded-xl overflow-hidden mb-5 border border-gray-800">
+        <div className="rounded-xl overflow-hidden mb-5 border border-border">
           <img
             src={project.img}
             alt={project.name}
