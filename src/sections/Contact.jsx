@@ -123,7 +123,7 @@ const Contact = () => {
         });
       })
       .finally(() => {
-        const cooldownSeconds = 30;
+        const cooldownSeconds = 15;
         const cooldownEnd = Date.now() + cooldownSeconds * 1000;
         localStorage.setItem("contactCooldownEnd", cooldownEnd.toString());
         setCooldown(cooldownSeconds);
