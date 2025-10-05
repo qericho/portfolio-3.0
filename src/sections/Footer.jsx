@@ -1,4 +1,6 @@
 import { Github, Instagram, Facebook, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import { fadeInCenter } from "../animations/variants";
 
 // Social media links
 const socialLinks = [
@@ -19,7 +21,13 @@ const socialLinks = [
 // Simple footer based on your design system
 const Footer = () => (
   <footer className="w-full bg-theme border-t border-theme py-8">
-    <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-6">
+    <motion.div
+      variants={fadeInCenter}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-6"
+    >
       {/* Copyright and name */}
       <div className="text-muted text-sm">
         &copy; {new Date().getFullYear()} Jericho Sta Maria. All rights
@@ -40,7 +48,7 @@ const Footer = () => (
           </a>
         ))}
       </div>
-    </div>
+    </motion.div>
   </footer>
 );
 

@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from "lucide-react";
-
+import { motion } from "framer-motion";
+import { fadeInBottom } from "../animations/variants";
 // Displays contact information with icons
 const ContactInfo = () => {
   // Contact details array
@@ -24,7 +25,13 @@ const ContactInfo = () => {
   return (
     // Container with grid layout for contact info
     <div className="w-full bg-theme text-theme border-t-[0.5px] border-theme">
-      <div className="place-items-start md:place-items-center grid grid-cols-1 md:grid-cols-3 gap-8 py-6 px-3">
+      <motion.div
+        variants={fadeInBottom}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="place-items-start md:place-items-center grid grid-cols-1 md:grid-cols-3 gap-8 py-6 px-3"
+      >
         {info.map((item, index) => (
           // Each contact info item
           <div key={index} className="flex items-center gap-3">
@@ -35,7 +42,7 @@ const ContactInfo = () => {
             </div>
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

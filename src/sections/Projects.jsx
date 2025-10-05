@@ -2,6 +2,8 @@ import { useState } from "react";
 import Title from "../components/Title";
 import ProjectModal from "../components/modals/ProjectModal ";
 import projects from "../assets/data/projects";
+import { motion } from "framer-motion";
+import { fadeInBottom } from "../animations/variants";
 
 const Projects = () => {
   const [filter, setFilter] = useState("All");
@@ -22,7 +24,13 @@ const Projects = () => {
       </div>
 
       {/* Filter Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-8">
+      <motion.div
+        variants={fadeInBottom}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="flex flex-wrap justify-center gap-4 mb-8"
+      >
         {["All", "Website", "Portfolio", "Other"].map((cat) => (
           <button
             key={cat}
@@ -36,12 +44,16 @@ const Projects = () => {
             {cat}
           </button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Project Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
         {filteredProjects.map((project) => (
-          <div
+          <motion.div
+            variants={fadeInBottom}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             key={project.id}
             onClick={() => setSelectedProject(project)} // 👈 open modal
             className="relative rounded-lg overflow-hidden shadow-md group cursor-pointer"
@@ -83,7 +95,7 @@ const Projects = () => {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 

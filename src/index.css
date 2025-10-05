@@ -11,6 +11,12 @@
   --color-border: #e5e7eb; /* Light border (gray-200) */
 }
 
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 /* Theme variables for dark mode */
 html.dark {
   --color-bg: #111111; /* Dark background */

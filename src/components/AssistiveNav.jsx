@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Menu, X, Briefcase, User, FolderGit2, Mail } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { Link } from "react-scroll";
+import { motion } from "framer-motion";
+import { fadeInCenter } from "../animations/variants";
 
 const navItems = [
   { name: "Portfolio", path: "hero", icon: <Briefcase size={18} /> },
@@ -33,7 +35,13 @@ const AssistiveNav = () => {
   return (
     <>
       {visible && (
-        <div className="fixed bottom-6 right-6 z-50">
+        <motion.div
+          variants={fadeInCenter}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="fixed bottom-6 right-6 z-50"
+        >
           {/* Floating Button */}
           <button
             onClick={() => setOpen((prev) => !prev)}
@@ -100,7 +108,7 @@ const AssistiveNav = () => {
               ))}
             </ul>
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );

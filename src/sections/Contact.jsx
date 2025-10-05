@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Github, Instagram, Facebook } from "lucide-react";
 import Title from "../components/Title";
+import { motion } from "framer-motion";
+import { fadeInBottom } from "../animations/variants";
 
 // Social media links
 const socialLinks = [
@@ -76,9 +78,21 @@ const Contact = () => {
   return (
     <section id="contact" className="w-full bg-theme text-theme py-16 px-6">
       <Title title="Contact Me" subtitle="I'd love to hear from you!" />
-      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 shadow-2xl rounded-xl overflow-hidden bg-muted/10 border border-theme">
+      <motion.div
+        variants={fadeInBottom}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 shadow-2xl rounded-xl overflow-hidden bg-muted/10 border border-theme"
+      >
         {/* Left: Contact Info and Social Links */}
-        <div className="p-8 bg-theme">
+        <motion.div
+          variants={fadeInBottom}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="p-8 bg-theme"
+        >
           <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
           <p className="text-muted mb-8">
             Feel free to reach out via email, phone, or social media. I'm always
@@ -118,9 +132,15 @@ const Contact = () => {
               </a>
             ))}
           </div>
-        </div>
+        </motion.div>
         {/* Right: Contact Form */}
-        <div className="p-8 bg-theme">
+        <motion.div
+          variants={fadeInBottom}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="p-8 bg-theme"
+        >
           <h2 className="text-3xl font-bold mb-6">Send a Message</h2>
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Field */}
@@ -213,8 +233,8 @@ const Contact = () => {
               Thank you for reaching out! I'll get back to you soon.
             </div>
           )}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

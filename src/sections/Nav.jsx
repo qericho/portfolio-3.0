@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Menu, Sun, SunMoon, X } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { Link as ScrollLink } from "react-scroll";
+import { motion } from "framer-motion";
+import { fadeInTop } from "../animations/variants";
 
-// Navigation items
 const navItems = [
   { name: "Portfolio", to: "hero" },
   { name: "About Me", to: "about" },
@@ -18,7 +19,12 @@ const Nav = () => {
 
   return (
     <section className="bg-theme text-theme w-full relative">
-      <div className="flex max-w-7xl mx-auto justify-between items-center xl:py-6 py-4 lg:px-2 sm:px-10 px-2">
+      <motion.div
+        variants={fadeInTop}
+        initial="hidden"
+        animate="visible"
+        className="flex max-w-7xl mx-auto justify-between items-center xl:py-6 py-4 lg:px-2 sm:px-10 px-2"
+      >
         {/* Logo */}
         <ScrollLink
           to="hero"
@@ -82,7 +88,7 @@ const Nav = () => {
             <Menu />
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Mobile dropdown */}
       {dropdownOpen && (
