@@ -1,38 +1,11 @@
 import { useState } from "react";
 import Title from "../components/Title";
-
-const projects = [
-  {
-    id: 1,
-    category: "Web Development",
-    img: "https://picsum.photos/id/1025/400/250",
-    name: "E-commerce Platform",
-    stack: ["React", "Node.js", "MongoDB"],
-    repo: "sample-repo-link",
-    demo: "sample-demo-link",
-  },
-  {
-    id: 2,
-    category: "Web Development",
-    img: "https://picsum.photos/id/1018/400/250",
-    name: "Portfolio Website",
-    stack: ["React", "Tailwind", "Vercel"],
-    repo: "sample-repo-link",
-    demo: "sample-demo-link",
-  },
-  {
-    id: 3,
-    category: "UI/UX Design",
-    img: "https://picsum.photos/id/1021/400/250",
-    name: "Mobile App Redesign",
-    stack: ["Figma", "Adobe XD"],
-    repo: "#",
-    demo: "#",
-  },
-];
+import ProjectModal from "../components/modals/ProjectModal ";
+import projects from "../assets/data/projects";
 
 const Projects = () => {
   const [filter, setFilter] = useState("All");
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const filteredProjects =
     filter === "All"
@@ -50,7 +23,7 @@ const Projects = () => {
 
       {/* Filter Buttons */}
       <div className="flex flex-wrap justify-center gap-4 mb-8">
-        {["All", "Web Development", "UI/UX Design", "Other"].map((cat) => (
+        {["All", "Website", "Portfolio", "Other"].map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
@@ -70,7 +43,8 @@ const Projects = () => {
         {filteredProjects.map((project) => (
           <div
             key={project.id}
-            className="relative rounded-lg overflow-hidden shadow-md group"
+            onClick={() => setSelectedProject(project)} // 👈 open modal
+            className="relative rounded-lg overflow-hidden shadow-md group cursor-pointer"
           >
             <img
               src={project.img}
@@ -85,7 +59,6 @@ const Projects = () => {
               </h3>
               <p className="text-sm text-gray-300 mb-2">{project.category}</p>
 
-              {/* Tech Stack Names */}
               <div className="text-white flex flex-wrap gap-2 mb-2">
                 {project.stack.map((tech, idx) => (
                   <span
@@ -97,33 +70,28 @@ const Projects = () => {
                 ))}
               </div>
 
-              {/* Demo & Repo Buttons */}
               <div className="flex space-x-2 text-white">
                 {project.demo !== "#" && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs bg-pink-500 px-3 py-1 rounded-md hover:bg-pink-600 transition"
-                  >
+                  <span className="text-xs bg-pink-500 px-3 py-1 rounded-md">
                     Demo
-                  </a>
+                  </span>
                 )}
                 {project.repo !== "#" && (
-                  <a
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs bg-gray-700 px-3 py-1 rounded-md hover:bg-gray-600 transition"
-                  >
+                  <span className="text-xs bg-gray-700 px-3 py-1 rounded-md">
                     Repo
-                  </a>
+                  </span>
                 )}
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 };
