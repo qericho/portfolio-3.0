@@ -53,7 +53,7 @@ const ProjectModal = ({ project, onClose }) => {
       {/* Close button */}
       <button
         onClick={handleClose}
-        className="absolute top-5 right-5 text-gray-400 hover:text-white transition"
+        className="absolute cursor-pointer top-5 right-5 text-gray-400 hover:text-white transition"
       >
         <X size={25} />
       </button>

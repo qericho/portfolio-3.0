@@ -4,15 +4,15 @@ import Title from "../components/Title";
 
 // Social media links
 const socialLinks = [
-  { href: "#", icon: Github, label: "GitHub" },
-  { href: "#", icon: Mail, label: "Email" },
+  { href: "https://github.com/qericho", icon: Github, label: "GitHub" },
+  { href: "https://www.instagram.com/echstmr/#", icon: Mail, label: "Email" },
   {
-    href: "#",
+    href: "https://www.instagram.com/echstmr/#",
     icon: Instagram,
     label: "Instagram",
   },
   {
-    href: "#",
+    href: "https://www.facebook.com/qericho/",
     icon: Facebook,
     label: "Facebook",
   },

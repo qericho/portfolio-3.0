@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Briefcase, User, FolderGit2, Mail } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import { Link } from "react-scroll"; // <-- import Link
+import { Link } from "react-scroll";
 
 const navItems = [
   { name: "Portfolio", path: "hero", icon: <Briefcase size={18} /> },
@@ -13,6 +13,7 @@ const navItems = [
 const AssistiveNav = () => {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [active, setActive] = useState("");
   const { isDark } = useTheme();
 
   // Show button when scrolling down
@@ -55,19 +56,45 @@ const AssistiveNav = () => {
               {navItems.map((item) => (
                 <li key={item.name}>
                   <Link
-                    to={item.path} // target section id
-                    smooth={true} // smooth scroll
-                    duration={500} // scroll duration in ms
-                    offset={-50} // adjust for fixed headers
+                    to={item.path}
+                    smooth={true}
+                    duration={500}
+                    offset={-50}
+                    spy={true}
+                    onSetActive={() => setActive(item.name)}
                     onClick={() => setOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer ${
-                      isDark
-                        ? "hover:bg-black hover:text-white"
-                        : "hover:bg-white hover:text-black"
-                    } transition`}
+                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer relative transition-all duration-200
+                      ${
+                        active === item.name
+                          ? isDark
+                            ? "text-black font-semibold"
+                            : "text-white font-semibold"
+                          : ""
+                      }
+                      group
+                    `}
                   >
-                    <span className="text-primary">{item.icon}</span>
-                    <span>{item.name}</span>
+                    {/* Icon */}
+                    <span
+                      className={`${
+                        active === item.name
+                          ? "text-primary"
+                          : "text-primary/80"
+                      }`}
+                    >
+                      {item.icon}
+                    </span>
+
+                    {/* Name */}
+                    <span className="relative">
+                      {item.name}
+                      {/* Underline animation */}
+                      <span
+                        className={`absolute left-0 -bottom-1 h-[2px] bg-primary transition-all duration-300 ${
+                          active === item.name ? "w-5" : "w-0 group-hover:w-5"
+                        }`}
+                      ></span>
+                    </span>
                   </Link>
                 </li>
               ))}
