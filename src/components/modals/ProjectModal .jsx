@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { X } from "lucide-react";
 
 const ProjectModal = ({ project, onClose }) => {
   const [show, setShow] = useState(false);
@@ -49,9 +50,16 @@ const ProjectModal = ({ project, onClose }) => {
           : "bg-black/0 opacity-0"
       }`}
     >
+      {/* Close button */}
+      <button
+        onClick={handleClose}
+        className="absolute top-5 right-5 text-gray-400 hover:text-white transition"
+      >
+        <X size={25} />
+      </button>
       <div
         ref={modalRef}
-        className={`bg-[#0f0f0f] text-white rounded-2xl shadow-2xl max-w-lg w-full mx-4 p-6 relative transform transition-all duration-300 ${
+        className={`bg-theme text-theme rounded-2xl shadow-2xl max-w-lg w-full mx-4 p-6 relative transform transition-all duration-300 ${
           show ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
@@ -66,14 +74,14 @@ const ProjectModal = ({ project, onClose }) => {
 
         {/* Title & Category */}
         <h2 className="text-2xl font-semibold mb-1">{project.name}</h2>
-        <p className="text-sm text-gray-400 mb-4">{project.category}</p>
+        <p className="text-sm text-theme mb-4">{project.category}</p>
 
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 mb-5">
           {project.stack.map((tech, idx) => (
             <span
               key={idx}
-              className="text-xs bg-gray-800 px-3 py-1 rounded-full"
+              className="text-xs text-white bg-gray-800 px-3 py-1 rounded-full"
             >
               {tech}
             </span>
@@ -81,7 +89,7 @@ const ProjectModal = ({ project, onClose }) => {
         </div>
 
         {/* Description */}
-        <p className="text-gray-300 text-sm leading-relaxed mb-6">
+        <p className="text-theme text-sm leading-relaxed mb-6">
           {project.desc || "No description available for this project."}
         </p>
 

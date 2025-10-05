@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Mail, Phone, MapPin, Github, Instagram, Facebook } from "lucide-react";
 import Title from "../components/Title";
 
