@@ -92,26 +92,12 @@ const Contact = () => {
       message: formData.message,
     };
 
-    const autoReplyParams = {
-      name: formData.name,
-      email: formData.email,
-      subject: formData.subject,
-    };
-
     emailjs
       .send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_NOTIFICATION_TEMPLATE_ID,
         notificationParams,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
-      .then(() =>
-        emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID,
-          autoReplyParams,
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        )
       )
       .then(() => {
         toast.success("Your message has been sent!", { position: "top-right" });
