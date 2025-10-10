@@ -1,13 +1,13 @@
 import {
-  Code2,
-  FileCode2,
-  Layout,
-  Atom,
-  GitBranch,
-  Smartphone,
-  Accessibility,
-  Palette,
-} from "lucide-react";
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiTailwindcss,
+  SiGit,
+} from "react-icons/si";
+import { MdPhoneIphone } from "react-icons/md";
 import { motion } from "framer-motion";
 import { fadeInCenter, fadeInLeft, fadeInRight } from "../animations/variants";
 
@@ -15,16 +15,15 @@ import { fadeInCenter, fadeInLeft, fadeInRight } from "../animations/variants";
 const AboutMe = () => {
   // Array of skill objects with icon and label
   const skills = [
-    { icon: FileCode2, label: "HTML5" },
-    { icon: Code2, label: "CSS3 / Tailwind" },
-    { icon: Layout, label: "JavaScript (ES6+)" },
-    { icon: Atom, label: "React" },
-    { icon: GitBranch, label: "Git / Version Control" },
-    { icon: Smartphone, label: "Responsive Design" },
-    { icon: Accessibility, label: "Accessibility" },
-    { icon: Palette, label: "UI/UX Principles" },
+    { icon: SiHtml5, label: "HTML" },
+    { icon: SiCss3, label: "CSS" },
+    { icon: MdPhoneIphone, label: "Responsive Design" },
+    { icon: SiJavascript, label: "JavaScript (ES6+)" },
+    { icon: SiTypescript, label: "TypeScript" },
+    { icon: SiReact, label: "React" },
+    { icon: SiTailwindcss, label: "Tailwind CSS" },
+    { icon: SiGit, label: "Git / Version Control" },
   ];
-
   return (
     <div className="w-full bg-theme text-theme pt-10 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">

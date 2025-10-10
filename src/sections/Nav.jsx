@@ -95,7 +95,7 @@ const Nav = () => {
       {/* Mobile dropdown */}
       {dropdownOpen && (
         <div className="fixed top-0 left-0 right-0 bg-theme text-theme shadow-lg rounded-b-md z-50">
-          <div className="flex flex-col gap-2 px-2 py-4">
+          <div className="flex flex-col gap-2 px-2 xl:py-6 py-4">
             <div className="flex justify-between items-center mb-2">
               <ScrollLink
                 to="hero"
