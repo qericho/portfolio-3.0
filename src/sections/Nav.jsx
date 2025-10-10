@@ -4,6 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
 import { fadeInTop } from "../animations/variants";
+import resumeFile from "../assets/resume/resume-stamaria.pdf";
 
 const navItems = [
   { name: "Portfolio", to: "hero" },
@@ -48,13 +49,12 @@ const Nav = () => {
                 duration={500}
                 offset={-70}
                 spy={true}
-                onSetActive={() => setActive(item.name)} // scroll tracking
+                onSetActive={() => setActive(item.name)}
                 className={`font-semibold text-sm transition-all duration-200 ${
                   active === item.name ? "text-primary" : "hover:text-primary"
                 }`}
               >
                 {item.name}
-                {/* Underline animation */}
                 <span
                   className={`absolute left-0 -bottom-1 h-[2px] bg-primary transition-all duration-300 ${
                     active === item.name ? "w-6" : "w-0 group-hover:w-6"
@@ -76,11 +76,13 @@ const Nav = () => {
               <SunMoon />
             </span>
           )}
-          <button className="lg:flex hidden py-2 px-5 bg-primary text-white text-sm rounded-md cursor-pointer hover:opacity-90 transition">
+          <a
+            href={resumeFile}
+            download="stamaria-resume.pdf"
+            className="lg:flex hidden py-2 px-5 bg-primary text-white text-sm rounded-md cursor-pointer hover:opacity-90 transition"
+          >
             Download CV
-          </button>
-
-          {/* Dropdown menu button for mobile */}
+          </a>
           <span
             className="lg:hidden block cursor-pointer relative"
             onClick={() => setDropdownOpen((open) => !open)}
@@ -142,10 +144,14 @@ const Nav = () => {
                 </li>
               ))}
             </ul>
-
-            <button className="mt-4 p-2 bg-primary text-white text-sm rounded-md cursor-pointer hover:opacity-90 transition">
+            <a
+              href={resumeFile}
+              download="stamaria-resume.pdf"
+              className="mt-4 p-2 bg-primary text-white text-sm rounded-md cursor-pointer hover:opacity-90 transition text-center"
+              onClick={() => setDropdownOpen(false)}
+            >
               Download CV
-            </button>
+            </a>
 
             <div className="mt-2 flex justify-center">
               {isDark ? (
