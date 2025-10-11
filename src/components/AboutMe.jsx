@@ -72,7 +72,7 @@ const AboutMe = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 key={i}
-                className="flex items-center gap-3 p-4 rounded-lg bg-muted/40 hover:bg-muted/50 transition"
+                className="flex md:flex-row flex-col items-center gap-1 md:gap-3 p-4 rounded-lg bg-muted/40 hover:bg-muted/50 transition"
               >
                 <Icon className="w-6 h-6 text-primary" />
                 <span className="text-sm">{label}</span>
