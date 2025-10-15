@@ -75,7 +75,7 @@ const AboutMe = () => {
                 className="flex md:flex-row flex-col items-center gap-1 md:gap-3 p-4 rounded-lg bg-muted/40 hover:bg-muted/50 transition"
               >
                 <Icon className="w-6 h-6 text-primary" />
-                <span className="text-sm">{label}</span>
+                <span className="text-sm md:text-start text-center">{label}</span>
               </motion.div>
             ))}
           </div>
