@@ -12,7 +12,7 @@ const ContactInfo = () => {
     },
     {
       label: "PHONE",
-      value: "0907-401-5774",
+      value: "0968-439-1706",
       icon: <Phone className="w-5 h-5 text-primary" />,
     },
     {
