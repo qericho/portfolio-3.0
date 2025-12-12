@@ -34,8 +34,8 @@ const contactDetails = [
   {
     icon: Phone,
     label: "Phone",
-    value: "0907-401-5774",
-    link: "tel:09074015774",
+    value: "0968-439-1706",
+    link: "tel:0968-439-1706",
   },
   { icon: MapPin, label: "Location", value: "Laguna, Philippines", link: null },
 ];
